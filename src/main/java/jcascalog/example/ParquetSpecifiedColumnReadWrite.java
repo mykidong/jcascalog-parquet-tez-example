@@ -138,15 +138,15 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 			// baseProperties.
 			Tuple t = (Tuple)fnCall.getArguments().getObject(0);	
-			System.out.println("t: [" + t.toString() + "]");			
-		
-			String serviceId = t.getString(6);
+			System.out.println("t: [" + t.toString() + "]");
 			
-			String uid = t.getString(4);
+			String serviceId = t.getString(0);
 			
-			String pcid = t.getString(5);
+			String uid = t.getString(1);
 			
-			long timestamp = t.getLong(1);
+			String pcid = t.getString(2);
+			
+			long timestamp = t.getLong(3);
 			
 			fnCall.getOutputCollector().add(new Tuple(serviceId, new Tuple(uid, pcid, timestamp)));
 		}

@@ -1,6 +1,6 @@
 {
    "type":"record",
-   "name":"ItemViewEvent",
+   "name":"ItemViewEventSpecified",
    "namespace":"avro.domain.event.schema",
    "fields":[
       {
@@ -9,46 +9,23 @@
             "null",
             {
                "type":"record",
-               "name":"BaseProperties",
+               "name":"BasePropertiesSpecified",
                "namespace":"avro.domain.event.schema",
                "fields":[
                   {
-                     "name":"eventType",
+                     "name":"serviceId",
                      "type":[
                         "null",
                         "string"
                      ]
                   },
                   {
-                     "name":"timestamp",
-                     "type":[
-                        "null",
-                        "long"
-                     ]
-                  },                  
-                  {
-                     "name":"url",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  }
-                  ,
-                  {
-                     "name":"referer",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },                  
-                  {
                      "name":"uid",
                      "type":[
                         "null",
                         "string"
                      ]
-                  }
-                  ,
+                  },
                   {
                      "name":"pcid",
                      "type":[
@@ -57,40 +34,10 @@
                      ]
                   },                  
                   {
-                     "name":"serviceId",
+                     "name":"timestamp",
                      "type":[
                         "null",
-                        "string"
-                     ]
-                  }
-                  ,
-                  {
-                     "name":"version",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },                  
-                  {
-                     "name":"deviceType",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  }
-                  ,
-                  {
-                     "name":"domain",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },                  
-                  {
-                     "name":"site",
-                     "type":[
-                        "null",
-                        "string"
+                        "long"
                      ]
                   }
                ]
