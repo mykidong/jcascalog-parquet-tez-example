@@ -74,7 +74,7 @@ public class JsonToParquetWrite extends Configured implements Tool {
 	
 		
 		// source tap.
-		Tap inTap = new Hfs(new TextLine(), input);
+		Tap inTap = new Hfs(new TextLine(new Fields("?json")), input);
 		
 		
 		String[] originFields = new String[] {"?base-properties", "?item-id", "!category-id", "!brand-id", "!item-type", "!promotion-id", "!price", "!item-title", "!item-description", "!thumbnail-url"};
