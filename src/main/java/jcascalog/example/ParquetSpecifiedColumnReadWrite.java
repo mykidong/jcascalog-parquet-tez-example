@@ -100,8 +100,7 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		itemViewEventParquetScheme.setSourceFields(new Fields("?base-properties", "?item-id"));		
 		
 		Tap[] parquetSourceTaps = new Tap[itemViewEventInputPathSet.size()];
-		int i = 0;	
-		
+		int i = 0;			
 		for(String parquetFile : itemViewEventInputPathSet)
 		{			
 			parquetSourceTaps[i++] = new Hfs(itemViewEventParquetScheme, parquetFile);	
@@ -139,15 +138,15 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 			// baseProperties.
 			Tuple t = (Tuple)fnCall.getArguments().getObject(0);	
-			System.out.println("t: [" + t.toString() + "]");
+			System.out.println("t: [" + t.toString() + "]");			
+		
+			String serviceId = t.getString(6);
 			
-			String serviceId = t.getString(0);
+			String uid = t.getString(4);
 			
-			String uid = t.getString(1);
+			String pcid = t.getString(5);
 			
-			String pcid = t.getString(2);
-			
-			long timestamp = t.getLong(3);
+			long timestamp = t.getLong(1);
 			
 			fnCall.getOutputCollector().add(new Tuple(serviceId, new Tuple(uid, pcid, timestamp)));
 		}
