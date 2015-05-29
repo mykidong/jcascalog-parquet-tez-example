@@ -1,164 +1,35 @@
 {
    "type":"record",
-   "name":"ItemViewEventOrigin",
-   "namespace":"avro.domain.event.schema",
+   "name":"ItemViewEventOrigin",   
    "fields":[
    	  {
          "name":"baseProperties",
-         "type":[
-            "null",
-            {
-               "type":"record",
-               "name":"BasePropertiesOrigin",
-               "namespace":"avro.domain.event.schema",
-               "fields":[  
-                  {
-                     "name":"eventType",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },
-                  {
-                     "name":"timestamp",
-                     "type":[
-                        "null",
-                        "long"
-                     ]
-                  },                  
-                  {
-                     "name":"url",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  }
-                  ,
-                  {
-                     "name":"referer",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },                  
-                  {
-                     "name":"uid",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  }
-                  ,
-                  {
-                     "name":"pcid",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },                  
-                  {
-                     "name":"serviceId",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  }
-                  ,
-                  {
-                     "name":"version",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },                  
-                  {
-                     "name":"deviceType",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  }
-                  ,
-                  {
-                     "name":"domain",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },                  
-                  {
-                     "name":"site",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  }
-               ]
-            }
-         ]
+         "type":{
+           "type":"record",
+           "name":"BasePropertiesOrigin",         
+           "fields":[  
+              {"name":"eventType", "type":"string"},
+              {"name":"timestamp", "type":"long"},                  
+              {"name":"url", "type":"string"},
+              {"name":"referer", "type":["null", "string"]},              
+              {"name":"uid", "type":["null", "string"]},
+              {"name":"pcid", "type":"string"},                  
+              {"name":"serviceId", "type":"string"},
+              {"name":"version", "type":"string"},                  
+              {"name":"deviceType", "type":"string"},
+              {"name":"domain", "type":"string"},                  
+              {"name":"site", "type":"string"}
+           ]
+         }         
       }, 
-      {
-         "name":"itemId",
-         "type":[
-            "null",
-            "string"
-         ]
-      },     
-      {
-         "name":"categoryId",
-         "type":[
-            "null",
-            "string"
-         ]
-      },
-      {
-         "name":"brandId",
-         "type":[
-            "null",
-            "string"
-         ]
-      },     
-      {
-         "name":"itemType",
-         "type":[
-            "null",
-            "string"
-         ]
-      },
-      {
-         "name":"promotionId",
-         "type":[
-            "null",
-            "string"
-         ]
-      },
-      {
-         "name":"price",
-         "type":[
-            "null",
-            "long"
-         ]
-      },     
-      {
-         "name":"itemTitle",
-         "type":[
-            "null",
-            "string"
-         ]
-      },
-      {
-         "name":"itemDescription",
-         "type":[
-            "null",
-            "string"
-         ]
-      },
-      {
-         "name":"thumbnailUrl",
-         "type":[
-            "null",
-            "string"
-         ]
-      }
+      {"name":"itemId", "type":"string"},     
+      {"name":"categoryId", "type":"string"},
+      {"name":"brandId", "type":["null", "string"]},    
+      {"name":"itemType", "type":"string"},
+      {"name":"promotionId", "type":["null", "string"]},
+      {"name":"price", "type":"long"},     
+      {"name":"itemTitle", "type":"string"},
+      {"name":"itemDescription", "type":["null", "string"]},
+      {"name":"thumbnailUrl", "type":"string"}
    ]
 }
