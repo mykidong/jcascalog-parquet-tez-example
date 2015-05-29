@@ -9,12 +9,7 @@
 		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
 	
 	<hdp:configuration id="hadoopConfiguration">	
-    	fs.defaultFS=hdfs://polaris-cluster
-    	dfs.nameservices=polaris-cluster
-		dfs.ha.namenodes.polaris-cluster=nn1,nn2
-		dfs.namenode.rpc-address.polaris-cluster.nn1=polaris001.gslook.com:8020
-		dfs.namenode.rpc-address.polaris-cluster.nn2=polaris002.gslook.com:8020
-		dfs.client.failover.proxy.provider.polaris-cluster=org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider    
+    	fs.defaultFS=hdfs://polaris-cluster    
         yarn.resourcemanager.hostname=polaris002.gslook.com
     </hdp:configuration>
 
