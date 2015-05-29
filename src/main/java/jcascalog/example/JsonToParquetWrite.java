@@ -1,11 +1,7 @@
 package jcascalog.example;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -23,23 +19,29 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cascading.flow.FlowProcess;
 import cascading.flow.FlowRuntimeProps;
+import cascading.operation.FunctionCall;
+import cascading.operation.OperationCall;
 import cascading.scheme.ParquetAvroScheme;
+import cascading.scheme.hadoop.TextLine;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
-
+import cascading.tuple.Tuple;
+import cascalog.CascalogFunction;
 
 
 public class JsonToParquetWrite extends Configured implements Tool {	
 	
 	public int run(String[] args) throws Exception {			
 		
-		String output = args[0];
+		String input = args[0];
+		String output = args[1];
 		String queue = "default";
-		if(args.length == 2)
+		if(args.length == 3)
 		{
-			queue = args[1];
+			queue = args[2];
 		}
 		
 		
@@ -68,52 +70,12 @@ public class JsonToParquetWrite extends Configured implements Tool {
 		FileSystem fs = FileSystem.get(hadoopConf);		
 		
 		// first, delete output.
-		fs.delete(new Path(output), true);		
+		fs.delete(new Path(output), true);			
+	
 		
+		// source tap.
+		Tap inTap = new Hfs(new TextLine(), input);
 		
-		
-		// input json 
-		java.net.URL url = this.getClass().getResource("/data/event-sample.data");	
-		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-		String strLine;		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		List rootList = new ArrayList();
-		while ((strLine = br.readLine()) != null)   {				
-			Map<String, Object> map = mapper.readValue(strLine, new TypeReference<Map<String, Object>>(){});
-			Map<String, Object> basePropertiesMap = (Map<String, Object>)map.get("baseProperties");
-			
-			List list = new ArrayList();
-			
-			List basePropList = new ArrayList();
-			basePropList.add(basePropertiesMap.get("eventType"));
-			basePropList.add(basePropertiesMap.get("timestamp"));
-			basePropList.add(basePropertiesMap.get("url"));
-			basePropList.add(basePropertiesMap.get("referer"));
-			basePropList.add(basePropertiesMap.get("uid"));
-			basePropList.add(basePropertiesMap.get("pcid"));
-			basePropList.add(basePropertiesMap.get("serviceId"));
-			basePropList.add(basePropertiesMap.get("version"));
-			basePropList.add(basePropertiesMap.get("deviceType"));
-			basePropList.add(basePropertiesMap.get("domain"));
-			basePropList.add(basePropertiesMap.get("site"));
-			
-			list.add(basePropList);
-			list.add(map.get("itemId"));
-			list.add(map.get("categoryId"));
-			list.add(map.get("brandId"));
-			list.add(map.get("itemType"));
-			list.add(map.get("promotionId"));
-			list.add(map.get("price"));
-			list.add(map.get("itemTitle"));
-			list.add(map.get("itemDescription"));
-			list.add(map.get("thumbnailUrl"));
-			
-			
-			rootList.add(list);			
-		}
-		
-		br.close();
 		
 		String[] originFields = new String[] {"?base-properties", "?item-id", "!category-id", "!brand-id", "!item-type", "!promotion-id", "!price", "!item-title", "!item-description", "!thumbnail-url"};
 		
@@ -126,13 +88,64 @@ public class JsonToParquetWrite extends Configured implements Tool {
 		Tap outTap = new Hfs(outParquetScheme, output);	
 	
 		Subquery query = new Subquery(originFields)
-				.predicate(rootList, originFields);			
+				.predicate(inTap, "?json")
+				.predicate(new Parse(), "?json").out(originFields);		
 			
 		
 		Api.execute(outTap, query);
 		
 		return 0;
 	}
+	
+	
+	public static class Parse extends CascalogFunction {
+		
+		private ObjectMapper mapper;
+		
+		@Override
+		public void prepare(FlowProcess flowProcess, OperationCall operationCall) {	
+			mapper = new ObjectMapper();
+		}
+
+		@Override
+		public void operate(FlowProcess flowProcess, FunctionCall fnCall) {			
+			String json = fnCall.getArguments().getString(0);	
+			
+			try
+			{
+				Map<String, Object> map = mapper.readValue(json, new TypeReference<Map<String, Object>>(){});
+				Map<String, Object> basePropertiesMap = (Map<String, Object>)map.get("baseProperties");
+				
+				Tuple basePropTuple = new Tuple(basePropertiesMap.get("eventType"),
+												basePropertiesMap.get("timestamp"),
+												basePropertiesMap.get("url"),
+												basePropertiesMap.get("referer"),
+												basePropertiesMap.get("uid"),
+												basePropertiesMap.get("pcid"),
+												basePropertiesMap.get("serviceId"),
+												basePropertiesMap.get("version"),
+												basePropertiesMap.get("deviceType"),
+												basePropertiesMap.get("domain"),
+												basePropertiesMap.get("site"));
+				
+				
+				fnCall.getOutputCollector().add(new Tuple(basePropTuple, 
+															map.get("itemId"),
+															map.get("categoryId"),
+															map.get("brandId"), 
+															map.get("itemType"), 
+															map.get("promotionId"), 
+															map.get("price"), 
+															map.get("itemTitle"), 
+															map.get("itemDescription"), 
+															map.get("thumbnailUrl")));	
+			
+			} catch(Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+		}
+	}	
 	
 	
 	
