@@ -1,6 +1,6 @@
 {
    "type":"record",
-   "name":"ItemViewEventOrigin",
+   "name":"ItemViewEvent",
    "namespace":"avro.domain.event.schema",
    "fields":[
    	  {
@@ -9,7 +9,7 @@
             "null",
             {
                "type":"record",
-               "name":"OriginProperties",
+               "name":"BaseProperties",
                "namespace":"avro.domain.event.schema",
                "fields":[  
                   {

@@ -104,7 +104,8 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 		for(String parquetFile : itemViewEventInputPathSet)
 		{			
-			parquetSourceTaps[i++] = new Hfs(itemViewEventParquetScheme, parquetFile);		
+			parquetSourceTaps[i++] = new Hfs(itemViewEventParquetScheme, parquetFile);	
+			System.out.println("included path: [" + parquetFile + "]");
 		}		
 		
 		// multi-source tap.
@@ -137,7 +138,8 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		public void operate(FlowProcess flowProcess, FunctionCall fnCall) {	
 		
 			// baseProperties.
-			Tuple t = (Tuple)fnCall.getArguments().getObject(0);			
+			Tuple t = (Tuple)fnCall.getArguments().getObject(0);	
+			System.out.println("t: [" + t.toString() + "]");
 			
 			String serviceId = t.getString(0);
 			

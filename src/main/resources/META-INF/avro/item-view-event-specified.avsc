@@ -1,6 +1,6 @@
 {
    "type":"record",
-   "name":"ItemViewEventSpecified",
+   "name":"ItemViewEvent",
    "namespace":"avro.domain.event.schema",
    "fields":[
       {
@@ -9,7 +9,7 @@
             "null",
             {
                "type":"record",
-               "name":"SpecifiedProperties",
+               "name":"BaseProperties",
                "namespace":"avro.domain.event.schema",
                "fields":[
                   {
