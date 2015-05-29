@@ -53,7 +53,7 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		hadoopConf.set("io.serializations", "cascading.kryo.KryoSerialization");
 		hadoopConf.set("mapred.mapper.new-api", "false");
 		hadoopConf.set("parquet.compression", "snappy");
-		hadoopConf.set("parquet.enable.dictionary", "true");
+		//hadoopConf.set("parquet.enable.dictionary", "true");
 		hadoopConf.set("tez.queue.name", queue);		
 		
 
@@ -97,7 +97,7 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 	    // input parquet avro scheme.
 		ParquetAvroScheme itemViewEventParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event-specified.avsc")));
-		itemViewEventParquetScheme.setSourceFields(new Fields("baseProperties", "itemId"));		
+		itemViewEventParquetScheme.setSourceFields(new Fields("?base-properties", "?item-id"));		
 		
 		Tap[] parquetSourceTaps = new Tap[itemViewEventInputPathSet.size()];
 		int i = 0;			
