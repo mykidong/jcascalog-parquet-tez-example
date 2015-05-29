@@ -97,7 +97,7 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 	    // input parquet avro scheme.
 		ParquetAvroScheme itemViewEventParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event-specified.avsc")));
-		//itemViewEventParquetScheme.setSourceFields(new Fields("?base-properties", "?item-id"));		
+		itemViewEventParquetScheme.setSourceFields(new Fields("baseProperties", "itemId"));		
 		
 		Tap[] parquetSourceTaps = new Tap[itemViewEventInputPathSet.size()];
 		int i = 0;			
