@@ -8,9 +8,9 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
 	
-	<hdp:configuration id="hadoopConfiguration">	
-    	fs.defaultFS=hdfs://polaris-cluster    
-        yarn.resourcemanager.hostname=polaris002.gslook.com
+	<hdp:configuration id="hadoopConfiguration">			
+    	fs.defaultFS=hdfs://polaris-cluster
+    	yarn.resourcemanager.hostname=polaris002.gslook.com
     </hdp:configuration>
 
 </beans>
