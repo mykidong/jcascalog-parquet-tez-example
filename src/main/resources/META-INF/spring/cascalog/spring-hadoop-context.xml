@@ -14,9 +14,8 @@
 		dfs.ha.namenodes.polaris-cluster=nn1,nn2
 		dfs.namenode.rpc-address.polaris-cluster.nn1=polaris001.gslook.com:8020
 		dfs.namenode.rpc-address.polaris-cluster.nn2=polaris002.gslook.com:8020
-		dfs.client.failover.proxy.provider.polaris-cluster=org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider		
-    
-        yarn.resourcemanager.hostname=polaris002.gslook.com       
-	</hdp:configuration>
+		dfs.client.failover.proxy.provider.polaris-cluster=org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider    
+        yarn.resourcemanager.hostname=polaris002.gslook.com
+    </hdp:configuration>
 
 </beans>
