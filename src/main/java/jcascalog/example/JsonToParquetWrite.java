@@ -51,7 +51,7 @@ public class JsonToParquetWrite extends Configured implements Tool {
 		hadoopConf.set("io.serializations", "cascading.kryo.KryoSerialization");
 		hadoopConf.set("mapred.mapper.new-api", "false");
 		hadoopConf.set("parquet.compression", "snappy");
-		//hadoopConf.set("parquet.enable.dictionary", "true");
+		hadoopConf.set("parquet.enable.dictionary", "true");
 		hadoopConf.set("tez.queue.name", queue);		
 		
 
@@ -82,7 +82,6 @@ public class JsonToParquetWrite extends Configured implements Tool {
 		
 		// output parquet avro scheme.
 		ParquetAvroScheme outParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event-origin.avsc")));
-		outParquetScheme.setSinkFields(new Fields(originFields));
 		
 		// sink tap.
 		Tap outTap = new Hfs(outParquetScheme, output);	
