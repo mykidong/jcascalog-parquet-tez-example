@@ -111,6 +111,7 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 		// output parquet avro scheme.
 		ParquetAvroScheme outParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event-revised.avsc")));
+		outParquetScheme.setSinkFields(new Fields("?revised-properties", "?service-id", "?item-id"));
 		
 		// sink tap.
 		Tap outTap = new Hfs(outParquetScheme, output);	
