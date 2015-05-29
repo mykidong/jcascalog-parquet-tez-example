@@ -1,24 +1,17 @@
 {
    "type":"record",
-   "name":"ItemViewEvent",
-   "namespace":"com.gsshop.polaris.avro.domain.event.schema",
+   "name":"ItemViewEventRevised",
+   "namespace":"avro.domain.event.schema",
    "fields":[
-      {
+   	  {
          "name":"baseProperties",
          "type":[
             "null",
             {
                "type":"record",
-               "name":"BaseProperties",
-               "namespace":"com.gsshop.polaris.avro.domain.event.schema",
-               "fields":[
-                  {
-                     "name":"serviceId",
-                     "type":[
-                        "null",
-                        "string"
-                     ]
-                  },
+               "name":"RevisedProperties",
+               "namespace":"avro.domain.event.schema",
+               "fields":[                  
                   {
                      "name":"uid",
                      "type":[
@@ -44,6 +37,13 @@
             }
          ]
       },
+      {
+         "name":"serviceId",
+         "type":[
+            "null",
+            "string"
+         ]
+      },     
       {
          "name":"itemId",
          "type":[

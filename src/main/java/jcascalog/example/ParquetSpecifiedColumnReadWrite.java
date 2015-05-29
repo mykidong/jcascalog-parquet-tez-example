@@ -96,12 +96,12 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 				
 		
 	    // input parquet avro scheme.
-		ParquetAvroScheme itemViewEventParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event.avsc")));
+		ParquetAvroScheme itemViewEventParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event-specified.avsc")));
 		itemViewEventParquetScheme.setSourceFields(new Fields("?base-properties", "?item-id"));		
 		
 		Tap[] parquetSourceTaps = new Tap[itemViewEventInputPathSet.size()];
-		int i = 0;			
-		Fields itemViewEventFields = new Fields("baseProperties", "itemId");
+		int i = 0;	
+		
 		for(String parquetFile : itemViewEventInputPathSet)
 		{			
 			parquetSourceTaps[i++] = new Hfs(itemViewEventParquetScheme, parquetFile);		
@@ -111,15 +111,15 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		MultiSourceTap multiSourceTap = new MultiSourceTap(parquetSourceTaps);		
 		
 		// output parquet avro scheme.
-		ParquetAvroScheme outParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event-selected.avsc")));
-		outParquetScheme.setSinkFields(new Fields("?selected-properties", "?service-id", "?item-id"));
+		ParquetAvroScheme outParquetScheme = new ParquetAvroScheme(new Schema.Parser().parse(getClass().getResourceAsStream("/META-INF/avro/item-view-event-revised.avsc")));
+		outParquetScheme.setSinkFields(new Fields("?revised-properties", "?service-id", "?item-id"));
 		
 		// sink tap.
 		Tap outTap = new Hfs(outParquetScheme, output);	
 	
-		Subquery query = new Subquery("?selected-properties", "?service-id", "?item-id")
+		Subquery query = new Subquery("?revised-properties", "?service-id", "?item-id")
 				.predicate(multiSourceTap, "?base-properties", "?item-id")
-				.predicate(new Reconstruct(), "?base-properties").out("?service-id", "?selected-properties");
+				.predicate(new Reconstruct(), "?base-properties").out("?service-id", "?revised-properties");
 			
 		
 		Api.execute(outTap, query);
