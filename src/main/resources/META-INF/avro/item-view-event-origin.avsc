@@ -1,6 +1,6 @@
 {
    "type":"record",
-   "name":"root",   
+   "name":"ItemViewEventOrigin",   
    "fields":[
    	  {
          "name":"baseProperties",

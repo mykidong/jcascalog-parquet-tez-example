@@ -6,7 +6,7 @@
          "name":"baseProperties",
          "type":{
            "type":"record",
-           "name":"BasePropertiesOrigin",         
+           "name":"BasePropertiesSpecified",         
            "fields":[             
               {"name":"serviceId", "type":"string"},           
               {"name":"uid", "type":["null", "string"]},
