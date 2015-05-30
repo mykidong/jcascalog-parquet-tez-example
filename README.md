@@ -31,7 +31,7 @@ To handle Parquet file with avro schema(https://github.com/mykidong/cascading-pa
 ```
 
 ## Cascading Tez Dependencies
-Tez supported cascading 3.0 dependencies added, see them in pom.xml
+Tez supported Cascading 3.0 dependencies added, see them in pom.xml
 
 
 # Run Example
