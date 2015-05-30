@@ -59,7 +59,7 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		hadoopConf.set("yarn.resourcemanager.hostname", resourceManagerHost);
 		hadoopConf.set("tez.queue.name", queue);	
 		
-
+	
 		// convert hadoop conf to map.
 		Map<String, String> confMap = new HashMap<String, String>();
 		Iterator<Entry<String, String>> iter = hadoopConf.iterator();
