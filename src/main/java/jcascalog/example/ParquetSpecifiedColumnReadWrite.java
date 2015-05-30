@@ -18,7 +18,6 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cascading.flow.FlowProcess;
 import cascading.flow.FlowRuntimeProps;
@@ -40,10 +39,12 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 		String input = args[0];
 		String output = args[1];
+		String defaultFS = args[2];
+		String resourceManagerHost = args[3];
 		String queue = "default";
-		if(args.length == 3)
+		if(args.length == 5)
 		{
-			queue = args[2];
+			queue = args[4];
 		}
 		
 		
@@ -54,7 +55,9 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		hadoopConf.set("mapred.mapper.new-api", "false");
 		hadoopConf.set("parquet.compression", "snappy");
 		hadoopConf.set("parquet.enable.dictionary", "true");
-		hadoopConf.set("tez.queue.name", queue);		
+		hadoopConf.set("fs.defaultFS", defaultFS);
+		hadoopConf.set("yarn.resourcemanager.hostname", resourceManagerHost);
+		hadoopConf.set("tez.queue.name", queue);	
 		
 
 		// convert hadoop conf to map.
@@ -153,10 +156,8 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 	
 	
 	public static void main(String[] args) throws Exception
-	{
-		Configuration conf = new ClassPathXmlApplicationContext("classpath*:/META-INF/spring/cascalog/*context.xml").getBean("hadoopConfiguration", Configuration.class);
-		
-		int exitCode = ToolRunner.run(conf, new ParquetSpecifiedColumnReadWrite(), args);
+	{		
+		int exitCode = ToolRunner.run(new Configuration(), new ParquetSpecifiedColumnReadWrite(), args);
 		System.exit(exitCode);
 	}
 }
