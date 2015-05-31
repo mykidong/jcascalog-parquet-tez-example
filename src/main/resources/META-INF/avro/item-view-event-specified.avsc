@@ -7,18 +7,11 @@
          "type":{
            "type":"record",
            "name":"BasePropertiesSpecified",         
-           "fields":[
-           	  {"name":"eventType", "type":"null"},
-              {"name":"timestamp", "type":"long"},                  
-              {"name":"url", "type":"null"},
-              {"name":"referer", "type":"null"},              
+           "fields":[           	 
+              {"name":"timestamp", "type":"long"},             
               {"name":"uid", "type":["null", "string"]},
               {"name":"pcid", "type":"string"},                  
-              {"name":"serviceId", "type":"string"},
-              {"name":"version", "type":"null"},                  
-              {"name":"deviceType", "type":"null"},
-              {"name":"domain", "type":"null"},                  
-              {"name":"site", "type":"null"}           
+              {"name":"serviceId", "type":"string"}                    
            ]
          }         
       }, 

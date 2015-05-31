@@ -136,22 +136,22 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		}
 
 		@Override
-		public void operate(FlowProcess flowProcess, FunctionCall fnCall) {			
+		public void operate(FlowProcess flowProcess, FunctionCall fnCall) {				
 		
 			// baseProperties.
 			Tuple t = (Tuple)fnCall.getArguments().getObject(0);	
 			System.out.println("t: [" + t.toString() + "]");
 			
-			String serviceId = t.getString(6);
+			String serviceId = t.getString(3);
 			System.out.println("serviceId: [" + serviceId + "]");
 			
-			String uid = t.getString(4);
+			String uid = t.getString(1);
 			System.out.println("uid: [" + uid + "]");
 			
-			String pcid = t.getString(5);
+			String pcid = t.getString(2);
 			System.out.println("pcid: [" + pcid + "]");
 			
-			long timestamp = t.getLong(1);
+			long timestamp = t.getLong(0);
 			System.out.println("timestamp: [" + timestamp + "]");
 			
 			fnCall.getOutputCollector().add(new Tuple(serviceId, new Tuple(uid, pcid, timestamp)));
