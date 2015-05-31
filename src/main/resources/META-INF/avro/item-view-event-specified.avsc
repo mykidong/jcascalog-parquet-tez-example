@@ -7,11 +7,11 @@
          "type":{
            "type":"record",
            "name":"BasePropertiesSpecified",         
-           "fields":[           	 
-              {"name":"timestamp", "type":"long"},             
+           "fields":[             
+              {"name":"serviceId", "type":"string"},           
               {"name":"uid", "type":["null", "string"]},
-              {"name":"pcid", "type":"string"},                  
-              {"name":"serviceId", "type":"string"}                    
+              {"name":"pcid", "type":"string"}, 
+              {"name":"timestamp", "type":"long"}
            ]
          }         
       }, 
