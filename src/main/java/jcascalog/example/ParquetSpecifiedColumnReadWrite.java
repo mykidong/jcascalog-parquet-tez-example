@@ -52,7 +52,7 @@ public class ParquetSpecifiedColumnReadWrite extends Configured implements Tool 
 		
 		hadoopConf.set(FlowRuntimeProps.GATHER_PARTITIONS, "4");
 		hadoopConf.set("io.serializations", "cascading.kryo.KryoSerialization");
-		hadoopConf.set("mapred.mapper.new-api", "false");
+		hadoopConf.set("mapred.mapper.new-api", "true");
 		hadoopConf.set("parquet.compression", "snappy");
 		hadoopConf.set("parquet.enable.dictionary", "true");
 		hadoopConf.set("fs.defaultFS", defaultFS);
